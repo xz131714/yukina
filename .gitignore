@@ -9,6 +9,7 @@ dist/
 
 # dependencies
 node_modules/
+pnpm_store/
 
 # logs
 npm-debug.log*
@@ -155,3 +156,11 @@ dist
 # i18next
 src/pages/en
 src/pages/ja
+
+# Windows 临时文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VS Code 工作区设置
+.vscode/

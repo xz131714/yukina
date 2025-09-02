@@ -1,71 +1,149 @@
 ---
+import { Icon } from "astro-icon/components";
+
 export interface FriendCardProps {
   name: string;
   avatar: string;
   description: string;
   url: string;
   type?: "friend" | "tech" | "contributor";
+  visitText?: string;
 }
 
-const { name, avatar, description, url, type = "friend" } = Astro.props as FriendCardProps;
+const { 
+  name, 
+  avatar, 
+  description, 
+  url, 
+  type = "friend",
+  visitText = "Visit" 
+} = Astro.props as FriendCardProps;
 
-import { Image } from "astro:assets";
-import { Icon } from "astro-icon/components";
-
-// Define type-based styling
+// 类型样式配置
 const typeConfig = {
   friend: {
-    bgClass: "bg-gradient-to-br from-primary/20 to-base-100",
     iconName: "lucide:users",
-    borderClass: "border-primary/30",
+    colorClass: "pink",
   },
   tech: {
-    bgClass: "bg-gradient-to-br from-secondary/20 to-base-100",
     iconName: "lucide:code-2",
-    borderClass: "border-secondary/30",
+    colorClass: "blue",
   },
   contributor: {
-    bgClass: "bg-gradient-to-br from-accent/20 to-base-100",
     iconName: "lucide:git-pull-request",
-    borderClass: "border-accent/30",
-  },
+    colorClass: "green",
+  }
 };
 
-const { bgClass, iconName, borderClass } = typeConfig[type];
+const { iconName, colorClass } = typeConfig[type];
 ---
 
-<div
-  class={`card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-1.5 border ${borderClass} overflow-hidden animate-fade-in-up`}
->
-  <a href={url} target="_blank" rel="noopener noreferrer">
-    <div class={`${bgClass} p-4 flex flex-col items-center`}>
-      <div class="avatar mb-3">
-        <div class="w-16 h-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 overflow-hidden">
-          {
-            avatar ? (
-              <Image src={avatar} width={64} height={64} format="webp" alt={name} loading="lazy" class="object-cover" />
-            ) : (
-              <div class="flex items-center justify-center w-full h-full bg-primary">
-                <span class="text-xl font-bold text-primary-content">{name.charAt(0)}</span>
-              </div>
-            )
-          }
-        </div>
+<div class="my-4">
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group not-prose block p-4 rounded-2xl bg-white dark:bg-slate-800 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up border border-gray-200/80 dark:border-slate-700/80 no-underline"
+    aria-label={`Visit ${name}: ${description}`}
+  >
+    <div class="flex gap-8 items-start">
+      <div class="w-20 h-20 flex-shrink-0 rounded-lg shadow-sm flex items-center justify-center overflow-hidden">
+        {
+          avatar ? (
+            <img 
+              src={avatar}
+              width={80}
+              height={80}
+              alt={name}
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+          ) : (
+            <div class={`bg-${colorClass}-500 dark:bg-${colorClass}-700 w-full h-full flex items-center justify-center`}>
+              <span class="text-xl font-bold text-white">{name.charAt(0)}</span>
+            </div>
+          )
+        }
       </div>
-      <h3 class="font-bold text-center">{name}</h3>
-      <div class="divider my-1"></div>
-      <p class="text-sm text-center text-base-content/70 line-clamp-2 leading-normal h-[3em]">{description}</p>
-    </div>
-    <div class="card-footer p-2 flex justify-center border-t border-base-200">
-      <div class="flex items-center gap-1 text-primary text-xs">
-        <Icon name={iconName} class="w-3.5 h-3.5" />
-        <span>Visit</span>
+      
+      <div class="flex-1 py-2 flex flex-col h-full">
+        <div>
+          <h3 class="font-bold text-lg text-slate-900 dark:text-slate-100 group-hover:text-primary transition-colors markdown-like pl-1 mb-3">
+            {name}
+          </h3>
+          
+          <div class="flex justify-between items-start">
+            <p class="text-sm text-slate-600 dark:text-slate-300/70 leading-relaxed line-clamp-3 flex-1 mr-4">
+              {description}
+            </p>
+            
+            <span class={`friend-type-${colorClass} font-medium text-sm inline-flex items-center whitespace-nowrap flex-shrink-0 mt-0.5 transition-all duration-300`}>
+              {visitText}
+              <Icon name="lucide:external-link" class="h-3.5 w-3.5 ml-1 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </a>
 </div>
 
 <style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .markdown-like {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    word-wrap: break-word;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .markdown-like::before {
+    display: none !important;
+  }
+  
+  .markdown-like, .markdown-like * {
+    border-left: none !important;
+  }
+  
+  /* 类型特定的颜色 */
+  .friend-type-pink {
+    color: #ec4899;
+  }
+  
+  .friend-type-blue {
+    color: #3b82f6;
+  }
+  
+  .friend-type-green {
+    color: #22c55e;
+  }
+  
+  .dark .friend-type-pink {
+    color: #f472b6;
+  }
+  
+  .dark .friend-type-blue {
+    color: #60a5fa;
+  }
+  
+  .dark .friend-type-green {
+    color: #4ade80;
+  }
+  
+  /* 悬停效果 */
+  a:hover .friend-type-pink,
+  a:hover .friend-type-blue,
+  a:hover .friend-type-green {
+    text-decoration: underline;
+  }
+  
   @keyframes fadeInUp {
     from {
       opacity: 0;

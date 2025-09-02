@@ -1,7 +1,33 @@
----
-import AlertBase from "./alerts/AlertBase.astro";
----
+---  
+export interface Props {  
+  children: any;  
+}  
+---  
+  
+<div class="success-component my-4 p-4 rounded-xl bg-[var(--card-color)] border-l-4 border-green-500 shadow-sm">  
+  <div class="flex items-start gap-3">  
+    <div class="flex-shrink-0 w-5 h-5 mt-0.5">  
+      <svg viewBox="0 0 20 20" fill="currentColor" class="text-green-500">  
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />  
+      </svg>  
+    </div>  
+    <div class="flex-1 text-[var(--text-color)]">  
+      <slot />  
+    </div>  
+  </div>  
+</div>  
+  
+<style>  
+  .success-component {  
+    background-color: oklch(95% 0.08 140 / 0.95);  
+  }  
 
-<AlertBase type="success" icon="lucide:check-circle">
-  <slot />
-</AlertBase>
+  /* 暗色主题适配 */
+  :root.dark .success-component {
+    background-color: rgba(20, 80, 35, 0.75);
+  }
+
+  :root.dark .success-component svg {
+    color: #4ade80;
+  }
+</style>

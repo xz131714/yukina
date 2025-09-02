@@ -15,7 +15,10 @@ import Collapse from '../../components/mdx/Collapse.astro';
 import TimeLine from '../../components/mdx/TimeLine.astro';    
 import LinkCard from '../../components/mdx/LinkCard.astro';    
 import FriendCard from '../../components/mdx/FriendCard.astro';  
-
+import RepositoryCard from '../../components/mdx/RepositoryCard.astro';
+import Kbd from '../../components/mdx/Kbd.astro';
+import Diff from '../../components/mdx/Diff.astro';
+import GitHubStats from '../../components/mdx/GitHubStats.astro';
 
 # RyuChan中的MDX使用指南
 
@@ -66,6 +69,14 @@ RyuChan提供了多种卡片组件，方便展示链接、项目和友情链接�
   badge="官方"  
 />  
 
+<RepositoryCard
+  name="RyuChan"
+  description="基于Astro的现代静态博客系统"
+  url="https://github.com/username/RyuChan"
+  language="TypeScript"
+  stars="3.2k"
+  forks="520"
+/>
 
 <FriendCard   
   name="RyuChan开发者"  
@@ -75,6 +86,21 @@ RyuChan提供了多种卡片组件，方便展示链接、项目和友情链接�
   type="tech"  
 />
 
+### 键盘快捷键
+
+在RyuChan中，您可以使用<Kbd>Ctrl</Kbd> + <Kbd>K</Kbd>快速打开搜索栏。
+
+### 代码差异展示
+
+<Diff>
+```diff
+- const greeting = "Hello World";
++ const greeting = "Hello RyuChan";
+
+- console.log("This is a test");
++ console.log("Welcome to RyuChan!");
+```
+</Diff>
 
 ## RyuChan开发路线图
 
@@ -92,6 +118,10 @@ RyuChan提供了多种卡片组件，方便展示链接、项目和友情链接�
     { year: "阶段10", event: "☁️ 云服务集成" }
   ]}  
 />
+
+## GitHub统计数据
+
+<GitHubStats username="ryuchan-dev" />
 
 ## 结语
 

@@ -1,23 +1,97 @@
----
-import { Icon } from "astro-icon/components";
+---  
+export interface Props {  
+  title: string;  
+  children: any;  
+}  
+  
+const { title } = Astro.props;  
+---  
+  
+<details class="not-prose group collapse-component my-4 rounded-xl shadow-sm border transition-all duration-300 overflow-hidden">  
+  <summary class="collapse-title cursor-pointer font-medium transition-colors select-none list-none">  
+    <div class="flex items-center gap-3 w-full p-4">  
+      <div class="flex-shrink-0 w-5 h-5 mt-0.5">
+        <svg viewBox="0 0 20 20" fill="currentColor" class="collapse-icon">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <span class="flex-1">{title}</span>  
+      <svg class="shrink-0 w-5 h-5 transform transition-transform duration-300 group-open:rotate-180 collapse-icon-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">  
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />  
+      </svg>  
+    </div>  
+  </summary>  
+  <div class="collapse-content">  
+    <div class="p-4 pt-2">  
+      <slot />  
+    </div>  
+  </div>  
+</details>  
+  
+<style>  
+  .collapse-component {  
+    background-color: var(--collapse-bg, rgba(255, 238, 245, 0.95));
+    border-left: 4px solid var(--collapse-accent, #d81b60);
+    border-color: var(--collapse-border, rgba(255, 183, 197, 0.3));
+  }  
+    
+  .collapse-title {  
+    color: var(--text-color, #333333);
+      
+    &:hover {  
+      background-color: var(--collapse-hover, rgba(255, 218, 233, 0.7));
+    }  
+  }  
+    
+  .collapse-content {  
+    color: var(--text-color, #333333);
+    border-top: 1px solid var(--collapse-border-light, rgba(216, 27, 96, 0.2));
+  }
+  
+  /* 暗色主题变量 */
+  :root.dark .collapse-component {
+    --collapse-bg: rgba(80, 24, 42, 0.75);
+    --collapse-accent: #ff80ab;
+    --collapse-border: rgba(255, 128, 171, 0.4);
+    --collapse-hover: rgba(90, 30, 50, 0.6);
+    --collapse-border-light: rgba(255, 128, 171, 0.25);
+  }
+    
+  /* 强制隐藏默认的三角形标记 */
+  details.collapse-component > summary::-webkit-details-marker {  
+    display: none !important;  
+  }  
+    
+  details.collapse-component > summary::marker {  
+    display: none !important;  
+  }
+  
+  details.collapse-component > summary {
+    list-style: none;
+  }  
+    
+  /* 图标颜色 */
+  .collapse-icon {
+    color: var(--collapse-accent, #d81b60);
+  }
+  
+  .collapse-icon-arrow {
+    color: var(--collapse-accent, #d81b60);
+  }
 
-interface Props {
-  title: string;
-}
-
-const { title } = Astro.props;
----
-
-<details class="not-prose group collapse bg-base-200 rounded-2xl border border-base-content/20 overflow-hidden">
-  <summary class="collapse-title text-xl font-medium cursor-pointer hover:bg-base-200 transition-colors">
-    <div class="flex items-center justify-between">
-      {title}
-      <Icon name="lucide:chevron-down" class="shrink-0 w-5 h-5 transform transition-transform group-open:rotate-180" />
-    </div>
-  </summary>
-  <div class="collapse-content">
-    <div class="pt-4">
-      <slot />
-    </div>
-  </div>
-</details>
+  /* 展开动画效果 */  
+  details[open] summary ~ * {  
+    animation: slide-in 0.3s ease-in-out;  
+  }  
+  
+  @keyframes slide-in {  
+    0% {  
+      opacity: 0;  
+      transform: translateY(-10px);  
+    }  
+    100% {  
+      opacity: 1;  
+      transform: translateY(0);  
+    }  
+  }  
+</style>

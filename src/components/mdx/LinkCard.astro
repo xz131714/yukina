@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 export interface LinkCardProps {
   title: string;
   desc: string;
@@ -8,6 +10,8 @@ export interface LinkCardProps {
   target?: string;
   icon?: string;
   categories?: string[];
+  siteName?: string; // 添加网站名称属性
+  visitText?: string; // 添加自定义访问文本
 }
 
 const {
@@ -19,74 +23,136 @@ const {
   target = "_blank",
   icon = "lucide:link",
   categories = [],
+  siteName,
+  visitText = "Visit"
 } = Astro.props as LinkCardProps;
 
-import { Image } from "astro:assets";
-import { Icon } from "astro-icon/components";
+// 获取显示的站点名称
+const displayName = siteName || title.split(" ")[0];
 ---
 
-<div
-  class="not-prose card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-1 animate-fade-in-up border border-base-200"
+<a
+  href={url}
+  target={target}
+  rel={target === "_blank" ? "noopener noreferrer" : undefined}
+  class="group not-prose block p-4 rounded-2xl bg-white dark:bg-slate-800 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up border border-gray-200/80 dark:border-slate-700/80 no-underline"
+  aria-label={`Visit ${title}: ${desc}`}
 >
-  <a
-    href={url}
-    target={target}
-    class="card-body p-4 md:p-6"
-    aria-label={`Visit ${title}: ${desc}`}
-    rel={target === "_blank" ? "noopener noreferrer" : undefined}
-  >
-    <div class="flex flex-col md:flex-row gap-4 items-center">
-      <div class="w-full md:w-[120px] h-[120px] flex-shrink-0 bg-base-200 rounded-lg overflow-hidden">
-        {
-          img ? (
-            <Image
-              src={img}
-              width={120}
-              height={120}
-              format="webp"
-              alt={title}
-              loading="lazy"
-              class="w-full h-full object-cover"
-            />
-          ) : (
-            <div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-base-300 to-base-100">
-              <Icon name={icon} class="w-8 h-8 text-primary opacity-80" aria-hidden="true" />
-            </div>
-          )
-        }
-      </div>
-      <div class="flex-1 space-y-2 w-full">
-        <div class="flex items-center gap-2 flex-wrap">
-          <h2 class="card-title text-xl">{title}</h2>
-          {badge && <div class="badge badge-secondary badge-md font-medium">{badge}</div>}
-        </div>
-
-        {
-          categories.length > 0 && (
-            <div class="flex flex-wrap gap-1 my-1">
-              {categories.map((category) => (
-                <span class="badge badge-outline badge-sm">{category}</span>
-              ))}
-            </div>
-          )
-        }
-
-        <p class="text-base-content/80 line-clamp-2 text-sm">{desc}</p>
-        <div class="card-actions justify-end mt-2">
-          <div class="flex items-center gap-1 text-primary hover:text-primary-focus transition-colors">
-            <span class="text-sm font-medium">Visit {title}</span>
-            <Icon name="lucide:external-link" class="w-3.5 h-3.5" aria-hidden="true" />
+  <div class="flex gap-8 items-start">
+    <div class="w-20 h-20 flex-shrink-0 rounded-lg bg-gray-50 dark:bg-slate-700 shadow-sm flex items-center justify-center overflow-hidden">
+      {
+        img ? (
+          <img 
+            src={img} 
+            alt={title} 
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <div class="bg-blue-50 dark:bg-slate-600 w-full h-full flex items-center justify-center">
+            <Icon name={icon} class="w-10 h-10 text-blue-500 dark:text-blue-400" aria-hidden="true" />
           </div>
+        )
+      }
+    </div>
+    
+    <div class="flex-1 py-2 flex flex-col h-full">
+      <div>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-slate-100 group-hover:text-primary transition-colors markdown-like pl-1 mb-3">
+          {title}
+        </h3>
+        
+        <div class="flex justify-between items-start">
+          <p class="text-sm text-slate-600 dark:text-slate-300/70 leading-relaxed line-clamp-3 flex-1 mr-4">
+            {desc}
+          </p>
+          
+          <span class="visit-text font-medium text-sm inline-flex items-center whitespace-nowrap flex-shrink-0 mt-0.5 transition-all duration-300">
+            {visitText} {displayName}
+            <Icon name="lucide:external-link" class="h-3.5 w-3.5 ml-1 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+          </span>
         </div>
       </div>
     </div>
-  </a>
-</div>
+</a>
 
 <style>
-  .card {
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(var(--color-border), 0.1);
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .markdown-like {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    word-wrap: break-word;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .markdown-like code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(175, 184, 193, 0.2);
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  }
+  
+  .dark .markdown-like code {
+    background-color: rgba(110, 118, 129, 0.4);
+  }
+  
+  /* 移除可能的左侧边框或竖线 */
+  .markdown-like::before {
+    display: none !important;
+  }
+  
+  /* 确保没有继承的边框 */
+  .markdown-like, .markdown-like * {
+    border-left: none !important;
+  }
+  
+  /* 卡片悬停时的动画效果 */
+  a:hover .visit-text {
+    text-decoration: underline;
+  }
+  
+  /* 自定义文本颜色效果，不依赖于CSS变量 */
+  a .visit-text {
+    color: #3b82f6; /* 明亮模式下的基础蓝色 */
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover .visit-text {
+    color: #2563eb; /* 明亮模式下悬停时的深蓝色 */
+  }
+  
+  .dark a .visit-text {
+    color: #60a5fa; /* 暗色模式下的亮蓝色 */
+  }
+  
+  .dark a:hover .visit-text {
+    color: #93c5fd; /* 暗色模式下悬停时的更亮蓝色 */
+  }
+  
+  /* 访问链接样式 */
+  .text-primary {
+    color: #3b82f6; /* 蓝色 */
+  }
+  
+  .dark .text-primary {
+    color: #60a5fa; /* 暗模式下的蓝色 */
   }
 
   @keyframes fadeInUp {

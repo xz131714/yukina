@@ -5,7 +5,9 @@ interface TimelineItem {
   year: string;
   event: string;
   icon?: string;
-  color?: "blue" | "purple" | "pink" | "default";
+  emoji?: string;
+  color?: string;
+  completed?: boolean;
 }
 
 interface Props {
@@ -15,238 +17,426 @@ interface Props {
 
 const { items, title } = Astro.props;
 
-// 设置默认颜色映射
-const colorMap = {
+// 定义颜色常量
+const DEFAULT_COLORS = {
+  primary: {
+    bg: "#4f46e5",
+    shadow: "rgba(79, 70, 229, 0.5)",
+    text: "#4f46e5"
+  },
+  secondary: {
+    bg: "#7928ca",
+    shadow: "rgba(121, 40, 202, 0.5)",
+    text: "#7928ca"
+  },
   blue: {
-    bg: "bg-blue-500",
-    darkBg: "dark:bg-blue-600",
-    textColor: "text-blue-500",
-    darkTextColor: "dark:text-blue-400",
-    shadowColor: "shadow-blue-500/30",
-    darkShadowColor: "dark:shadow-blue-600/20",
-    cardBg: "bg-blue-50",
-    darkCardBg: "dark:bg-slate-800/80"
+    bg: "#0ea5e9",
+    shadow: "rgba(14, 165, 233, 0.5)",
+    text: "#0ea5e9"
+  },
+  indigo: {
+    bg: "#6366f1",
+    shadow: "rgba(99, 102, 241, 0.5)",
+    text: "#6366f1"
   },
   purple: {
-    bg: "bg-purple-500",
-    darkBg: "dark:bg-purple-600",
-    textColor: "text-purple-500",
-    darkTextColor: "dark:text-purple-400",
-    shadowColor: "shadow-purple-500/30",
-    darkShadowColor: "dark:shadow-purple-600/20",
-    cardBg: "bg-purple-50",
-    darkCardBg: "dark:bg-slate-800/80"
-  },
-  pink: {
-    bg: "bg-pink-500",
-    darkBg: "dark:bg-pink-600",
-    textColor: "text-pink-500",
-    darkTextColor: "dark:text-pink-400",
-    shadowColor: "shadow-pink-500/30",
-    darkShadowColor: "dark:shadow-pink-600/20",
-    cardBg: "bg-pink-50",
-    darkCardBg: "dark:bg-slate-800/80"
-  },
-  default: {
-    bg: "bg-sky-500",
-    darkBg: "dark:bg-sky-600",
-    textColor: "text-sky-500",
-    darkTextColor: "dark:text-sky-400",
-    shadowColor: "shadow-sky-500/30",
-    darkShadowColor: "dark:shadow-sky-600/20",
-    cardBg: "bg-sky-50",
-    darkCardBg: "dark:bg-slate-800/80"
+    bg: "#8b5cf6",
+    shadow: "rgba(139, 92, 246, 0.5)",
+    text: "#8b5cf6"
   }
 };
 ---  
-<ul class="not-prose timeline timeline-vertical timeline-snap-icon max-w-4xl mx-auto my-8 px-4">
-  {title && <h3 class="text-2xl font-bold mb-6 text-center">{title}</h3>}
+<div class="timeline-container timeline-component">
+  {title && <h2 class="timeline-title">{title}</h2>}
   
-  <div class="timeline-line-container">
-    <div class="timeline-line-center bg-slate-200 dark:bg-slate-700"></div>
-  </div>
-  
-  {
-    items.map((item, index) => {
-      const itemColor = item.color || (index % 2 === 0 ? "blue" : "purple");
-      const colors = colorMap[itemColor];
-      const iconName = item.icon || "check";
-      
-      return (
-        <li class="timeline-item relative mb-6 last:mb-0">
-          {index % 2 === 0 ? (
-            <>
-              <div class="timeline-start flex items-center justify-end pr-0">
-                <time class={`font-mono text-base font-semibold ${colors.textColor} ${colors.darkTextColor} mr-2`}>{item.year}</time>
-              </div>
-              <div class="timeline-middle">
-                <div class={`timeline-dot ${colors.bg} ${colors.darkBg} rounded-full p-1 shadow-lg ${colors.shadowColor} ${colors.darkShadowColor}`}>
-                  <Icon name={`lucide:${iconName}`} class="w-4 h-4 text-white" />
+  <ul class="timeline-list">
+    {
+      items.map((item, index) => {
+        const colorKey = item.color || (index % 2 === 0 ? "primary" : "secondary");
+        const currentColor = DEFAULT_COLORS[colorKey as keyof typeof DEFAULT_COLORS] || DEFAULT_COLORS.primary;
+        const iconName = item.icon || "check";
+        const isEven = index % 2 === 0;
+        
+        return (
+          <li class={`timeline-item ${isEven ? 'timeline-item-even' : 'timeline-item-odd'}`}>
+            <hr class="timeline-line" />
+            
+            {isEven ? (
+              <>
+                <div class="timeline-start">
+                  <time class="timeline-time" style={`color: ${currentColor.text}`}>{item.year}</time>
                 </div>
-              </div>
-              <div class="timeline-end pl-0">
-                <div class={`timeline-box ${colors.cardBg} ${colors.darkCardBg} border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 py-2 px-4 ml-1`}>
-                  <p class="leading-relaxed text-slate-700 dark:text-slate-200">{item.event}</p>
+                
+                <div class="timeline-middle">
+                  <div class="timeline-icon-container" style={`background-color: ${currentColor.bg}; box-shadow: 0 0 10px ${currentColor.shadow}`}>
+                    {item.emoji ? (
+                      <span class="timeline-emoji">{item.emoji}</span>
+                    ) : (
+                      <Icon name={`lucide:${iconName}`} class="timeline-icon" />
+                    )}
+                  </div>
                 </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div class="timeline-start pr-0">
-                <div class={`timeline-box ${colors.cardBg} ${colors.darkCardBg} border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 py-2 px-4 mr-1`}>
-                  <p class="leading-relaxed text-slate-700 dark:text-slate-200">{item.event}</p>
+                
+                <div class="timeline-end">
+                  <div class="timeline-card">
+                    <p>{item.event}</p>
+                  </div>
                 </div>
-              </div>
-              <div class="timeline-middle">
-                <div class={`timeline-dot ${colors.bg} ${colors.darkBg} rounded-full p-1 shadow-lg ${colors.shadowColor} ${colors.darkShadowColor}`}>
-                  <Icon name={`lucide:${iconName}`} class="w-4 h-4 text-white" />
+              </>
+            ) : (
+              <>
+                <div class="timeline-start">
+                  <div class="timeline-card">
+                    <p>{item.event}</p>
+                  </div>
                 </div>
-              </div>
-              <div class="timeline-end flex items-center pl-0">
-                <time class={`font-mono text-base font-semibold ${colors.textColor} ${colors.darkTextColor} ml-2`}>{item.year}</time>
-              </div>
-            </>
-          )}
-        </li>
-      );
-    })
-  }
+                
+                <div class="timeline-middle">
+                  <div class="timeline-icon-container" style={`background-color: ${currentColor.bg}; box-shadow: 0 0 10px ${currentColor.shadow}`}>
+                    {item.emoji ? (
+                      <span class="timeline-emoji">{item.emoji}</span>
+                    ) : (
+                      <Icon name={`lucide:${iconName}`} class="timeline-icon" />
+                    )}
+                  </div>
+                </div>
+                
+                <div class="timeline-end">
+                  <time class="timeline-time" style={`color: ${currentColor.text}`}>{item.year}</time>
+                </div>
+              </>
+            )}
+            
+            <hr class="timeline-line" />
+          </li>
+        );
+      })
+    }
   </ul>
+</div>
+
+<script>
+  // 获取当前页面主题
+  function updateTimelineTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const timelineContainers = document.querySelectorAll('.timeline-component');
+    
+    timelineContainers.forEach(container => {
+      if (isDark) {
+        container.classList.add('timeline-dark');
+      } else {
+        container.classList.remove('timeline-dark');
+      }
+    });
+  }
+  
+  // 初始化
+  updateTimelineTheme();
+  
+  // 监听主题变化
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'data-theme') {
+        updateTimelineTheme();
+      }
+    });
+  });
+  
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
+</script>
 
 <style>
-  .timeline {
-    display: grid;
-    grid-template-columns: 1fr 36px 1fr;
-    gap: 0.75rem;
-    position: relative;
-  }
-
-  .timeline-vertical {
-    grid-auto-flow: dense;
-  }
-
-  .timeline-line-container {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  .timeline-line-center {
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(to bottom, 
-      rgba(148, 163, 184, 0.1) 0%, 
-      rgba(148, 163, 184, 0.8) 20%,
-      rgba(148, 163, 184, 0.8) 80%,
-      rgba(148, 163, 184, 0.1) 100%
-    );
+  .timeline-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem 20px;
+    border-radius: 1rem;
+    background-color: var(--bg-card, #ffffff);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
   
-  .dark .timeline-line-center {
-    background: linear-gradient(to bottom, 
-      rgba(71, 85, 105, 0.1) 0%, 
-      rgba(71, 85, 105, 0.8) 20%,
-      rgba(71, 85, 105, 0.8) 80%,
-      rgba(71, 85, 105, 0.1) 100%
-    );
-  }
-
-  .timeline-item {
-    grid-column: 1 / span 3;
-    grid-template-columns: subgrid;
-    display: grid;
-    gap: inherit;
-    position: relative;
-  }
-
-  .timeline-middle {
-    grid-column: 2;
-    display: grid;
-    place-items: center;
-    position: relative;
-    z-index: 10;
-    padding: 0;
-  }
-
-  .timeline-start {
-    grid-column: 1;
-    text-align: right;
-    display: flex;
-    align-items: center;
-    height: 2rem;
-    padding-right: 0;
-  }
-
-  .timeline-end {
-    grid-column: 3;
-    display: flex;
-    align-items: center;
-    height: 2rem;
-    padding-left: 0;
+  .timeline-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-color, #1f2937);
   }
   
-  .timeline-dot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border: 2px solid white;
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
-  }
-  
-  .timeline-box {
-    position: relative;
-    border-radius: 0.75rem;
-  }
-
-  /* 响应式调整 */
-  @media (max-width: 640px) {
-    .timeline {
-      grid-template-columns: 32px 1fr;
-      gap: 0.5rem;
-    }
-
-    .timeline-item {
-      grid-column: 1 / span 2;
-    }
-
-    .timeline-middle {
-      grid-column: 1;
-    }
-
-    .timeline-start,
-    .timeline-end {
-      grid-column: 2;
-      text-align: left;
-    }
-    
-    .timeline-line-container {
-      justify-content: flex-start;
-      padding-left: 16px;
-    }
-  }
-
-  /* 特定的列表样式重置 */
-  ul.timeline {
+  .timeline-list {
     margin: 0;
     padding: 0;
     list-style: none;
+    position: relative;
   }
-
-  ul.timeline li {
+  
+  .timeline-list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background-color: var(--border-color, #e2e8f0);
+    transform: translateX(-50%);
+  }
+  
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 0.5rem;
+    position: relative;
+    margin-bottom: 3rem;
+  }
+  
+  .timeline-item:last-child {
     margin-bottom: 0;
-    padding-bottom: 1.25rem;
+  }
+  
+  .timeline-line {
+    display: none;
+  }
+  
+  .timeline-start {
+    grid-column: 1;
+    text-align: right;
+  }
+  
+  .timeline-middle {
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .timeline-end {
+    grid-column: 3;
+    text-align: left;
+  }
+  
+  .timeline-icon-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--icon-bg, #4f46e5);
+    box-shadow: 0 0 10px var(--icon-shadow, rgba(79, 70, 229, 0.5));
+    border: 2px solid var(--icon-border, #ffffff);
+  }
+  
+  .timeline-icon {
+    width: 20px;
+    height: 20px;
+    color: white;
+  }
+  
+  .timeline-emoji {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+  
+  /* 奇数和偶数时间线项的不同样式 */
+  .timeline-item-odd .timeline-card {
+    background-color: var(--card-bg-odd, #f0f7ff);
+    border-color: var(--card-border-odd, #dbeafe);
   }
 
-  ul.timeline li:last-child {
-    padding-bottom: 0;
+  .timeline-item-even .timeline-card {
+    background-color: var(--card-bg-even, #faf5ff);
+    border-color: var(--card-border-even, #e9d5ff);
   }
-</style>
+  
+  .timeline-card {
+    background-color: var(--card-bg, #f9fafb);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid var(--card-border, #e5e7eb);
+  }
+  
+  .timeline-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .timeline-card p {
+    margin: 0;
+    line-height: 1.5;
+    color: var(--text-color, #374151);
+  }
+  
+  .timeline-time {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: inline-block;
+    margin: 1rem 0;
+    background-color: var(--time-bg, #f1f5f9);
+    color: var(--time-text, #374151);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--time-border, #e2e8f0);
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    .timeline-list::before {
+      left: 20px;
+    }
+    
+    .timeline-item {
+      grid-template-columns: 40px 1fr;
+      gap: 1rem;
+    }
+    
+    .timeline-item-even .timeline-start,
+    .timeline-item-odd .timeline-start {
+      grid-column: 2;
+      grid-row: 2;
+      text-align: left;
+    }
+    
+    .timeline-item-even .timeline-middle,
+    .timeline-item-odd .timeline-middle {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+    }
+    
+    .timeline-item-even .timeline-end,
+    .timeline-item-odd .timeline-end {
+      grid-column: 2;
+      grid-row: 1;
+      text-align: left;
+    }
+    
+    .timeline-time {
+      margin: 0.5rem 0;
+    }
+  }
+  
+  /* 添加移动端特定的样式调整 */
+  @media (max-width: 480px) {
+    .timeline-container {
+      padding: 1.5rem;
+    }
+    
+    .timeline-card {
+      padding: 1rem;
+    }
+    
+    .timeline-time {
+      font-size: 1rem;
+      padding: 0.4rem 0.8rem;
+    }
+  }
+  
+  /* 暗色模式适配 - 使用data-theme属性选择器 */
+  [data-theme="dark"] .timeline-container {
+    --bg-card: #1a1625;
+    --text-color: rgba(255, 255, 255, 0.9);
+    --border-color: #2d2d2d;
+    --card-bg: #121212;
+    --card-border: #2d2d2d;
+    --card-bg-odd: #0f172a;
+    --card-border-odd: #1e293b;
+    --card-bg-even: #18122B;
+    --card-border-even: #2D2B40;
+    --time-bg: #121212;
+    --time-text: rgba(255, 255, 255, 0.87);
+    --time-border: #2d2d2d;
+    --icon-border: #121212;
+    --icon-shadow: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* 确保在暗色模式下阴影效果适当 */
+  [data-theme="dark"] .timeline-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+  
+  [data-theme="dark"] .timeline-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  [data-theme="dark"] .timeline-time {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* 额外添加的类，由JS控制 */
+  .timeline-component.timeline-dark {
+    --bg-card: #1a1625;
+    --text-color: rgba(255, 255, 255, 0.9);
+    --border-color: #2d2d2d;
+    --card-bg: #121212;
+    --card-border: #2d2d2d;
+    --card-bg-odd: #0f172a;
+    --card-border-odd: #1e293b;
+    --card-bg-even: #18122B;
+    --card-border-even: #2D2B40;
+    --time-bg: #121212;
+    --time-text: rgba(255, 255, 255, 0.87);
+    --time-border: #2d2d2d;
+    --icon-border: #121212;
+    --icon-shadow: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .timeline-component.timeline-dark .timeline-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+  
+  .timeline-component.timeline-dark .timeline-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .timeline-component.timeline-dark .timeline-time {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* 兼容.dark类选择器，以防万一 */
+  .dark .timeline-container,
+  html.dark .timeline-container,
+  body.dark .timeline-container {
+    --bg-card: #1a1625;
+    --text-color: rgba(255, 255, 255, 0.9);
+    --border-color: #2d2d2d;
+    --card-bg: #121212;
+    --card-border: #2d2d2d;
+    --card-bg-odd: #0f172a;
+    --card-border-odd: #1e293b;
+    --card-bg-even: #18122B;
+    --card-border-even: #2D2B40;
+    --time-bg: #121212;
+    --time-text: rgba(255, 255, 255, 0.87);
+    --time-border: #2d2d2d;
+    --icon-border: #121212;
+    --icon-shadow: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .dark .timeline-card,
+  html.dark .timeline-card,
+  body.dark .timeline-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+  
+  .dark .timeline-card:hover,
+  html.dark .timeline-card:hover,
+  body.dark .timeline-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dark .timeline-time,
+  html.dark .timeline-time,
+  body.dark .timeline-time {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
 </style>

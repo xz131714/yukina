@@ -6,6 +6,7 @@ import tailwind from "@astrojs/tailwind";
 import svelte from "@astrojs/svelte";
 import swup from "@swup/astro";
 
+import mdx from "@astrojs/mdx"; 
 import rehypeSlug from "rehype-slug";
 import rehypeKatex from "rehype-katex";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -23,6 +24,7 @@ export default defineConfig({
     tailwind(),
     svelte(),
     icon(),
+    mdx(),
     swup({
       theme: false,
       containers: ["main", "footer", ".banner-inner"],

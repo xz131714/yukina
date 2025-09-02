@@ -1,12 +1,12 @@
 ---
-title: MDX
-published: 2022-08-01
-description: This post demonstrates how to include embedded video in a blog post.
-tags: [Example, Video]
-category: Examples
-draft: false
+title: "你的文章标题"  
+published: 2024-01-01  
+draft: false  
+description: "文章描述"  
+tags: ["标签1", "标签2"]  
+category: "分类"  
 ---
-  
+
 import Collapse from "../../components/mdx/Collapse.astro";  
 import Diff from "../../components/mdx/Diff.astro";  
 import Error from "../../components/mdx/Error.astro";  
@@ -30,59 +30,57 @@ import LinkCard from "../../components/mdx/LinkCard.astro";
   This is the hidden content!
 </Collapse>
 
-```astro
+
 <Collapse title="This is an example text.">
   This is the hidden content!
 </Collapse>
-```
+
 
 #### Diff
 
 <Diff l="/image/l.png" r="/image/r.png" />
 
-```astro
+
 <Diff l="/image/l.png" r="/image/r.png" />
-```
+
 
 #### Error
 
 <Error>Maybe something went wrong?</Error>
 
-```astro
+
 <Error>Maybe something went wrong? </Error>
-```
 
 #### Warning
 
 <Warning>Hey! Watch out for potholes! </Warning>
 
-```astro
+
 <Warning>Hey! Watch out for potholes! </Warning>
-```
+
 
 #### Message
 
 <Info>It's just a message. </Info>
 
-```astro
+
 <Info>It's just a message. </Info>
-```
+
 
 #### Success
 
 <Success>Congratulations on your successful deployment! </Success>
 
-```astro
 <Success>Congratulations on your successful deployment! </Success>
-```
+
 
 #### Kbd
 
 <Kbd>Ctrl</Kbd> + <Kbd>C</Kbd> to copy the text.
 
-```astro
+
 <Kbd>Ctrl</Kbd> + <Kbd>C</Kbd> to copy the text.
-```
+
 
 #### TimeLine
 
@@ -96,7 +94,7 @@ import LinkCard from "../../components/mdx/LinkCard.astro";
   ]}
 />
 
-```astro
+
 <TimeLine
   items={[
     { year: "1984", event: "First Macintosh computer" },
@@ -106,7 +104,6 @@ import LinkCard from "../../components/mdx/LinkCard.astro";
     { year: "2015", event: "Apple Watch" },
   ]}
 />
-```
 
 #### LinkCard
 
@@ -116,12 +113,3 @@ import LinkCard from "../../components/mdx/LinkCard.astro";
   url="https://github.com/EveSunMaple/Frosti"
   img="/logo.png"
 />
-
-```astro
-<LinkCard
-  title="Frosti"
-  desc="My blog project!"
-  url="https://github.com/EveSunMaple/Frosti"
-  img="/logo.png"
-/>
-```

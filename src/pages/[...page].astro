@@ -35,8 +35,8 @@ const { page } = Astro.props;
               tags={entry.data.tags}
               description={entry.data.description}
               image={entry.data.cover}
-              readingMetadata={
-                (entry.rendered!.metadata as any).frontmatter.readingMetadata
+              readingMetadata={  
+                entry.rendered?.metadata?.frontmatter?.readingMetadata || { time: 0, wordCount: 0 }  
               }
             />
           </div>

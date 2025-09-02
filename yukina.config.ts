@@ -12,6 +12,8 @@ const YukinaConfig: Configuration = {
 
   locale: "zh-CN", // set for website language and date format
 
+  
+
   navigators: [
     {
       nameKey: I18nKeys.nav_bar_home,
@@ -82,6 +84,20 @@ const YukinaConfig: Configuration = {
     name: "CC BY-NC-SA 4.0",
     url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
   },
+
+  // 添加樱花特效配置  
+  sakura: {  
+    enable: true,  
+    sakuraNum: 21,  
+    limitTimes: -1,  
+    size: { min: 0.5, max: 1.1 },  
+    speed: {  
+      horizontal: { min: -1.7, max: -1.2 },  
+      vertical: { min: 1.5, max: 2.2 },  
+      rotation: 0.03  
+    },  
+    zIndex: 100  
+  },  
 
   // WIP functions
   bannerStyle: "LOOP", // 'loop' | 'static' | 'hidden'

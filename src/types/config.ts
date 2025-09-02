@@ -33,6 +33,20 @@ interface Configuration {
     url: string;
   };
 
+   // 添加樱花配置类型  
+  sakura?: {  
+    enable: boolean;  
+    sakuraNum: number;  
+    limitTimes: number;  
+    size: { min: number; max: number };  
+    speed: {  
+      horizontal: { min: number; max: number };  
+      vertical: { min: number; max: number };  
+      rotation: number;  
+    };  
+    zIndex: number;  
+  };
+
   bannerStyle: "LOOP";
 }
 

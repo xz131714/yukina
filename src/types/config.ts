@@ -33,6 +33,23 @@ interface Configuration {
     url: string;
   };
 
+  // 添加 Giscus 评论系统配置  
+  giscus?: {  
+    enable: boolean;  
+    repo: string;  
+    repoId: string;  
+    category: string;  
+    categoryId: string;  
+    mapping: string;  
+    strict: string;  
+    reactionsEnabled: string;  
+    emitMetadata: string;  
+    inputPosition: string;  
+    theme: string;  
+    lang: string;  
+    loading: string;  
+  };  
+
    // 添加樱花配置类型  
   sakura?: {  
     enable: boolean;  

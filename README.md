@@ -1,4 +1,4 @@
-# Yukina
+# RyuChan
 
 Simple and Elegant Astro Blog Template
 
@@ -8,7 +8,7 @@ Simple and Elegant Astro Blog Template
 
 ## Demo Preview Links
 
-[🖥️ Live Demo (Vercel)](https://yukina-blog.vercel.app) |
+[🖥️ Live Demo (Vercel)](https://ryuchan-blog.vercel.app) |
 [🖥️ WhitePaper233's Blog (possibly not the latest version)](https://whitepaper233.top/)
 
 ## 🛠️ Build Guide

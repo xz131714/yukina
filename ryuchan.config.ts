@@ -1,7 +1,7 @@
 import I18nKeys from "./src/locales/keys";
 import type { Configuration } from "./src/types/config";
 
-const YukinaConfig: Configuration = {
+const RyuChanConfig: Configuration = {
   title: "RyuChan's Blog",
   subTitle: "欲买桂花同载酒，终不似，少年游！",
   brandTitle: "RyuChan",
@@ -120,4 +120,4 @@ const YukinaConfig: Configuration = {
   bannerStyle: "LOOP", // 'loop' | 'static' | 'hidden'
 };
 
-export default YukinaConfig;
+export default RyuChanConfig;

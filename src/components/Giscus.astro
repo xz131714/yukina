@@ -1,7 +1,7 @@
 ---  
-import YukinaConfig from "../../yukina.config";  
+import RyuChanConfig from "../../ryuchan.config";  
   
-const giscusConfig = YukinaConfig.giscus;  
+const giscusConfig = RyuChanConfig.giscus;  
 ---  
   
 {giscusConfig?.enable && (  
@@ -11,7 +11,7 @@ const giscusConfig = YukinaConfig.giscus;
     let giscusLoaded = false;  
       
     function getCurrentTheme() {  
-      // 检查 Yukina 的主题类  
+      // 检查 RyuChan 的主题类  
       return document.documentElement.classList.contains('dark') ? 'dark' : 'light';  
     }  
       

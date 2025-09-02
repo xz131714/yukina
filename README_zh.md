@@ -1,4 +1,4 @@
-# Yukina - 友希那
+# RyuChan
 
 简单优雅的 Astro 博客模板
 
@@ -6,7 +6,7 @@
 
 ## Demo 预览链接
 
-[🖥️ Live Demo (Vercel)](https://yukina-blog.vercel.app) |
+[🖥️ Live Demo (Vercel)](https://ryuchan-blog.vercel.app) |
 [🖥️ WhitePaper233's Blog ( 可能非最新版本 )](https://whitepaper233.top/)
 
 ## 🛠️ 构建指南

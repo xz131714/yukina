@@ -2,15 +2,15 @@ import I18nKeys from "./src/locales/keys";
 import type { Configuration } from "./src/types/config";
 
 const YukinaConfig: Configuration = {
-  title: "Yukina",
-  subTitle: "Yukina Template Demo Site",
-  brandTitle: "Yukina",
+  title: "RyuChan's Blog",
+  subTitle: "欲买桂花同载酒，终不似，少年游！",
+  brandTitle: "RyuChan",
 
-  description: "Demo Site",
+  description: "Ciallo～(∠・ω<)⌒★",
 
-  site: "https://yukina-blog.vercel.app",
+  site: "https://hub.xiaozhangya.xin",
 
-  locale: "en", // set for website language and date format
+  locale: "zh-CN", // set for website language and date format
 
   navigators: [
     {
@@ -21,23 +21,35 @@ const YukinaConfig: Configuration = {
       nameKey: I18nKeys.nav_bar_archive,
       href: "/archive",
     },
+    {  
+      nameKey: I18nKeys.nav_bar_navigation,
+      href: "/navigation",
+    },
+    {
+      nameKey: I18nKeys.nav_bar_bangumi,
+      href: "/bangumi",
+    },
+    {
+      nameKey: I18nKeys.nav_bar_music,  
+      href: "/music",  
+    },  
     {
       nameKey: I18nKeys.nav_bar_about,
       href: "/about",
     },
-    {
-      nameKey: I18nKeys.nav_bar_github,
-      href: "https://github.com/WhitePaper233/yukina",
-    },
+    // {
+    //   nameKey: I18nKeys.nav_bar_github,
+    //   href: "https://github.com/WhitePaper233/yukina",
+    // },
   ],
 
-  username: "WhitePaper 白芷",
-  sign: "Ad Astra Per Aspera.",
+  username: "RyuChan",
+  sign: "Ciallo～(∠・ω<)⌒★",
   avatarUrl: "https://s2.loli.net/2025/01/25/FPpTrQSezM8ivbl.webp",
   socialLinks: [
     {
       icon: "line-md:github-loop",
-      link: "https://github.com/WhitePaper233",
+      link: "https://github.com/xz131714",
     },
     {
       icon: "mingcute:bilibili-line",

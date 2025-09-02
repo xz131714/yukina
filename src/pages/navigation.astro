@@ -1,0 +1,181 @@
+---  
+import MainLayout from "../layouts/MainLayout.astro";  
+import YukinaConfig from "../../yukina.config";  
+import { Icon } from "astro-icon/components";  
+---  
+  
+<MainLayout title={`导航 - ${YukinaConfig.title}`}>  
+  <div class="space-y-8">  
+    <!-- 页面标题 -->  
+    <div class="rounded-3xl bg-[var(--card-color)] p-6">  
+      <h1 class="text-2xl md:text-3xl font-bold">  
+        <span class="bg-gradient-to-r from-green-400 to-pink-500 text-transparent bg-clip-text">  
+          网站导航  
+        </span>  
+      </h1>  
+      <p class="mt-2 text-[var(--text-color-lighten)]">  
+        收藏的常用网站和工具链接  
+      </p>  
+    </div>  
+  
+    <!-- 导航内容 -->  
+    <div class="rounded-3xl bg-[var(--card-color)] p-6">  
+      <div class="space-y-10">  
+        <!-- 开发工具 -->  
+        <section>  
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">    
+            <Icon name="mdi:code-tags" class="w-6 h-6 text-[var(--primary-color)]" />    
+            <span class="text-[var(--text-color)]">开发工具</span>  
+          </h2>  
+            
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">  
+            <!-- Umami -->  
+            <a href="https://us.umami.is/dashboard" target="_blank"   
+               class="block p-4 rounded-lg bg-[var(--card-color)] border border-[var(--border-color)] hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg">  
+              <div class="flex items-center gap-3 mb-3">  
+                <img src="https://img.xiaozhangya.xin/file/Logo/1753850918996_umami.png"   
+                     alt="Umami" class="w-8 h-8 rounded">  
+                <h3 class="font-semibold text-[var(--text-color)]">Umami</h3>  
+              </div>  
+              <p class="text-sm text-[var(--text-color-lighten)] mb-2">网站访问统计分析平台</p>  
+              <span class="text-xs px-2 py-1 rounded bg-[var(--primary-color-lighten)] text-[var(--primary-color)]">统计分析</span>  
+            </a>  
+  
+            <!-- Vercel -->  
+            <a href="https://vercel.com/login?next=%2Fxz131714s-projects" target="_blank"  
+               class="block p-4 rounded-lg bg-[var(--card-color)] border border-[var(--border-color)] hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg">  
+              <div class="flex items-center gap-3 mb-3">  
+                <img src="https://img.xiaozhangya.xin/file/Logo/1753851435981_Vercel.png"   
+                     alt="Vercel" class="w-8 h-8 rounded">  
+                <h3 class="font-semibold text-[var(--text-color)]">Vercel</h3>  
+              </div>  
+              <p class="text-sm text-[var(--text-color-lighten)] mb-2">现代化的前端部署平台</p>  
+              <span class="text-xs px-2 py-1 rounded bg-[var(--primary-color-lighten)] text-[var(--primary-color)]">部署托管</span>  
+            </a>  
+  
+            <!-- Iconify -->  
+            <a href="https://iconify.design/" target="_blank"  
+               class="block p-4 rounded-lg bg-[var(--card-color)] border border-[var(--border-color)] hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg">  
+              <div class="flex items-center gap-3 mb-3">  
+                <img src="https://iconify.design/favicon.ico"   
+                     alt="Iconify" class="w-8 h-8 rounded">  
+                <h3 class="font-semibold text-[var(--text-color)]">Iconify</h3>  
+              </div>  
+              <p class="text-sm text-[var(--text-color-lighten)] mb-2">海量图标库和图标搜索工具</p>  
+              <span class="text-xs px-2 py-1 rounded bg-[var(--primary-color-lighten)] text-[var(--primary-color)]">图标设计</span>  
+            </a>  
+  
+            <!-- Iconfont -->  
+            <a href="https://www.iconfont.cn/" target="_blank"  
+               class="block p-4 rounded-lg bg-[var(--card-color)] border border-[var(--border-color)] hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg">  
+              <div class="flex items-center gap-3 mb-3">  
+                <img src="https://img.xiaozhangya.xin/file/Logo/DEPF9Ovv.png"   
+                     alt="Iconfont" class="w-8 h-8 rounded">  
+                <h3 class="font-semibold text-[var(--text-color)]">Iconfont</h3>  
+              </div>  
+              <p class="text-sm text-[var(--text-color-lighten)] mb-2">阿里巴巴图标库</p>  
+              <span class="text-xs px-2 py-1 rounded bg-[var(--primary-color-lighten)] text-[var(--primary-color)]">图标设计</span>  
+            </a>  
+  
+            <!-- Shields -->  
+            <a href="https://shields.io/" target="_blank"  
+               class="block p-4 rounded-lg bg-[var(--card-color)] border border-[var(--border-color)] hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg">  
+              <div class="flex items-center gap-3 mb-3">  
+                <img src="https://shields.io/img/logo.png"   
+                     alt="Shields" class="w-8 h-8 rounded">  
+                <h3 class="font-semibold text-[var(--text-color)]">Shields</h3>  
+              </div>  
+              <p class="text-sm text-[var(--text-color-lighten)] mb-2">为项目生成各种徽章</p>  
+              <span class="text-xs px-2 py-1 rounded bg-[var(--primary-color-lighten)] text-[var(--primary-color)]">徽章工具</span>  
+            </a>  
+  
+            <!-- Clarity -->  
+            <a href="https://clarity.microsoft.com/" target="_blank"  
+               class="block p-4 rounded-lg bg-[var(--card-color)] border border-[var(--border-color)] hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg">  
+              <div class="flex items-center gap-3 mb-3">  
+                <img src="https://picbed.xiaozhangya.xin/picbed/20250726225237829.png"   
+                     alt="Clarity" class="w-8 h-8 rounded">  
+                <h3 class="font-semibold text-[var(--text-color)]">Clarity</h3>  
+              </div>  
+              <p class="text-sm text-[var(--text-color-lighten)] mb-2">微软的用户行为分析工具</p>  
+              <span class="text-xs px-2 py-1 rounded bg-[var(--primary-color-lighten)] text-[var(--primary-color)]">用户分析</span>  
+            </a>  
+          </div>  
+        </section>  
+  
+        <!-- 服务平台 -->  
+        <section>  
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">  
+            <Icon name="mdi:server" class="w-6 h-6 text-[var(--primary-color)]" />  
+            <span class="text-[var(--text-color)]">服务平台</span>  
+          </h2>  
+            
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">  
+            <!-- DigitalPlat -->  
+            <a href="https://dash.domain.digitalplat.org/panel/main" target="_blank"  
+               class="block p-4 rounded-lg bg-[var(--card-color)] border border-[var(--border-color)] hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg">  
+              <div class="flex items-center gap-3 mb-3">  
+                <img src="https://picbed.xiaozhangya.xin/picbed/20250726172053106.png"   
+                     alt="DigitalPlat" class="w-8 h-8 rounded">  
+                <h3 class="font-semibold text-[var(--text-color)]">DigitalPlat</h3>  
+              </div>  
+              <p class="text-sm text-[var(--text-color-lighten)] mb-2">免费域名注册</p>  
+              <span class="text-xs px-2 py-1 rounded bg-[var(--primary-color-lighten)] text-[var(--primary-color)]">域名管理</span>  
+            </a>  
+  
+            <!-- Cloudflare -->  
+            <a href="https://dash.cloudflare.com/login" target="_blank"  
+               class="block p-4 rounded-lg bg-[var(--card-color)] border border-[var(--border-color)] hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg">  
+              <div class="flex items-center gap-3 mb-3">  
+                <img src="https://www.cloudflare.com/favicon.ico"   
+                     alt="Cloudflare" class="w-8 h-8 rounded">  
+                <h3 class="font-semibold text-[var(--text-color)]">Cloudflare</h3>  
+              </div>  
+              <p class="text-sm text-[var(--text-color-lighten)] mb-2">全球领先的CDN和安全服务</p>  
+              <span class="text-xs px-2 py-1 rounded bg-[var(--primary-color-lighten)] text-[var(--primary-color)]">域名托管服务</span>  
+            </a>  
+  
+            <!-- GitHub -->  
+            <a href="https://github.com" target="_blank"  
+               class="block p-4 rounded-lg bg-[var(--card-color)] border border-[var(--border-color)] hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg">  
+              <div class="flex items-center gap-3 mb-3">  
+                <img src="https://github.githubassets.com/favicons/favicon.svg"   
+                     alt="GitHub" class="w-8 h-8 rounded">  
+                <h3 class="font-semibold text-[var(--text-color)]">GitHub</h3>  
+              </div>  
+              <p class="text-sm text-[var(--text-color-lighten)] mb-2">全球最大的开源社区</p>  
+              <span class="text-xs px-2 py-1 rounded bg-[var(--primary-color-lighten)] text-[var(--primary-color)]">代码托管</span>  
+            </a>  
+          </div>  
+        </section>  
+  
+        <!-- 娱乐资源 -->  
+        <section>  
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">  
+            <Icon name="mdi:image" class="w-6 h-6 text-[var(--primary-color)]" />  
+            <span class="text-[var(--text-color)]">娱乐资源</span>  
+          </h2>  
+            
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">  
+            <!-- Wallhaven -->  
+            <a href="https://wallhaven.cc/" target="_blank"  
+               class="block p-4 rounded-lg bg-[var(--card-color)] border border-[var(--border-color)] hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg">  
+              <div class="flex items-center gap-3 mb-3">  
+                <img src="https://picbed.xiaozhangya.xin/picbed/20250726182418838.png"   
+                     alt="Wallhaven" class="w-8 h-8 rounded">  
+                <h3 class="font-semibold text-[var(--text-color)]">Wallhaven</h3>  
+              </div>  
+              <p class="text-sm text-[var(--text-color-lighten)] mb-2">高质量壁纸分享社区</p>  
+              <span class="text-xs px-2 py-1 rounded bg-[var(--primary-color-lighten)] text-[var(--primary-color)]">壁纸资源</span>  
+            </a>  
+          </div>  
+        </section>  
+  
+        <!-- 分隔线 -->  
+        <div class="flex justify-center my-8">  
+          <Icon name="mdi:heart" class="w-10 h-10 text-[var(--primary-color)]" />  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+</MainLayout>

@@ -3,8 +3,8 @@
   import { OverlayScrollbars } from "overlayscrollbars";
   import Icon from "@iconify/svelte";
 
-  import I18nKeys from "../locales/keys";
-  import { i18n } from "../locales/translation";
+  import I18nKeys from "../../i18n/keys";
+  import { i18n } from "../../i18n/translation";
 
   let searchKeyword = "";
   let searchResult: any[] = [];

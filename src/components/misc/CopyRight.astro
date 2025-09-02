@@ -1,8 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 import RyuChanConfig from "../../../ryuchan.config";
-import I18nKeys from "../../locales/keys";
-import { i18n } from "../../locales/translation";
+import key from "../../i18n/keys";
+import { i18n } from "../../i18n/translation";
 import { formatDate } from "../../utils/date";
 
 export interface Props {
@@ -36,7 +36,7 @@ const { title, published, license, author, sourceLink } = Astro.props;
     <div class="ml-1 flex flex-row space-x-4 lg:space-x-8">
       <div class="flex flex-col">
         <span class="select-none text-sm text-[var(--text-color-lighten)]"
-          >{i18n(I18nKeys.copy_right_author)}</span
+          >{i18n(key.copy_right_author)}</span
         >
         <p
           class="!my-0 line-clamp-1 text-sm text-[var(--text-color)] lg:text-base"
@@ -46,7 +46,7 @@ const { title, published, license, author, sourceLink } = Astro.props;
       </div>
       <div class="flex flex-col">
         <span class="select-none text-sm text-[var(--text-color-lighten)]"
-          >{i18n(I18nKeys.copy_right_publish_date)}</span
+          >{i18n(key.copy_right_publish_date)}</span
         >
         <p
           class="!my-0 line-clamp-1 text-sm text-[var(--text-color)] lg:text-base"
@@ -56,7 +56,7 @@ const { title, published, license, author, sourceLink } = Astro.props;
       </div>
       <div class="flex flex-col">
         <span class="select-none text-sm text-[var(--text-color-lighten)]"
-          >{i18n(I18nKeys.copy_right_license)}</span
+          >{i18n(key.copy_right_license)}</span
         >
         <!-- with special license -->
         {

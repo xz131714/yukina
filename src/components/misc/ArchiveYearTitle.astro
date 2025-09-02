@@ -1,6 +1,6 @@
 ---
-import I18nKeys from "../../locales/keys";
-import { i18n } from "../../locales/translation";
+import key from "../../i18n/keys";
+import { i18n } from "../../i18n/translation";
 
 export interface Props {
   year: number;
@@ -24,7 +24,7 @@ const { year, count } = Astro.props;
   </div>
   <div>
     <p class="count select-none text-[var(--text-color-lighten)]">
-      {i18n(I18nKeys.archive_year_title_count, count.toString())}
+      {i18n(key.archive_year_title_count, count.toString())}
     </p>
   </div>
 </div>

@@ -1,7 +1,7 @@
 ---
 import PostArchiveLayout from "../../layouts/PostArchiveLayout.astro";
-import I18nKeys from "../../locales/keys";
-import { i18n } from "../../locales/translation";
+import key from "../../i18n/keys";
+import { i18n } from "../../i18n/translation";
 import { GetTags, type Archive } from "../../utils/content";
 
 export async function getStaticPaths() {
@@ -33,5 +33,5 @@ const { archiveMap, tagName } = await FormatArchiveMap();
 <PostArchiveLayout
   archiveMap={archiveMap}
   title={tagName}
-  subTitle={i18n(I18nKeys.pages_tags_archive)}
+  subTitle={i18n(key.pages_tags_archive)}
 />

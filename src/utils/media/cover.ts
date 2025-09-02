@@ -1,5 +1,5 @@
-import { GetIndexFromSlugID } from "./hash";
-import RyuChanConfig from "../../ryuchan.config";
+import { GetIndexFromSlugID } from "../security/hash";
+import RyuChanConfig from "../../../ryuchan.config";
 
 /**
  * Retrieves the cover URL for an unspecified entry based on the provided ID.

@@ -1,22 +1,17 @@
 import RyuChanConfig from "../../ryuchan.config";
-import type I18nKeys from "./keys";
-import { en } from "./languages/en";
-import { zh_CN } from "./languages/zh_cn";
+import key from "./keys";
 
 export type Translation = {
-  [K in I18nKeys]: string;
+  [key: string]: string;
 };
 
-const map: { [key: string]: Translation } = {
-  en: en,
-  "zh-cn": zh_CN,
-};
+import { languageMappings } from './config';
 
 export function getTranslation(lang: string): Translation {
-  return map[lang.toLowerCase()] || en;
+  return languageMappings[lang] || languageMappings['en'];
 }
 
-export function i18n(key: I18nKeys, ...interpolations: string[]): string {
+export function i18n(key: string, ...interpolations: string[]): string {
   const lang = RyuChanConfig.locale;
   let translation = getTranslation(lang)[key];
   interpolations.forEach((interpolation) => {

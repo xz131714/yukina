@@ -1,4 +1,4 @@
-import RyuChanConfig from "../../ryuchan.config";
+import RyuChanConfig from "../../../ryuchan.config";
 import CryptoJS from "crypto-js";
 
 /**

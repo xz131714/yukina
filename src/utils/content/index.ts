@@ -1,5 +1,5 @@
 import { getCollection } from "astro:content";
-import { IdToSlug } from "./hash";
+import { IdToSlug } from "../security/hash";
 
 /**
  * Represents an archive item with a title, slug, date, and optional tags.

@@ -1,7 +1,7 @@
 ---
 import { getEntry, render } from "astro:content";
 import Main from "../layouts/MainLayout.astro";
-import Markdown from "../components/Markdown.astro";
+import Markdown from "../components/post/Markdown.astro";
 import CopyRight from "../components/misc/CopyRight.astro";
 
 const aboutPost = await getEntry("specs", "about");

@@ -1,10 +1,10 @@
 ---
-import { IdToSlug } from "../utils/security/hash";
+import { IdToSlug } from "../utils/hash";
 import { Icon } from "astro-icon/components";
 import PostCardInfoIcon from "./widgets/PostCardInfoIcon.astro";
-import { GetCoverURLForUnspecifiedEntry } from "../utils/media";
-import { i18n } from "../i18n/translation";
-import key from "../i18n/keys";
+import { GetCoverURLForUnspecifiedEntry } from "../utils/cover";
+import { i18n } from "../../i18n/translation";
+import I18nKeys from "../locales/keys";
 import RyuChanConfig from "../../ryuchan.config";
 import { formatDate } from "../utils/date";
 
@@ -132,12 +132,12 @@ const { time, wordCount } = props.readingMetadata;
           <div class="reading-time">
             <span>
               {wordCount}
-              {i18n(key.post_card_words)}
+              {i18n(I18nKeys.post_card_words)}
             </span>
             <span>|</span>
             <span>
               {time}
-              {i18n(key.post_card_minutes)}
+              {i18n(I18nKeys.post_card_minutes)}
             </span>
           </div>
         </div>

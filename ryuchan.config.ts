@@ -1,123 +1,23 @@
-import I18nKeys from "./src/locales/keys";
+/**
+ * RyuChan 博客主题配置文件
+ * 
+ * 此配置文件是对模块化配置的统一导出，便于在项目中使用。
+ * 所有实际配置项已按功能分类并移至 src/config 目录中。
+ * 修改配置后需要重新构建项目才能生效。
+ */
+import config from './src/config';
 import type { Configuration } from "./src/types/config";
 
-const RyuChanConfig: Configuration = {
-  title: "RyuChan's Blog",
-  subTitle: "欲买桂花同载酒，终不似，少年游！",
-  brandTitle: "RyuChan",
+const RyuChanConfig: Configuration = config;
+/**
+ * 为了向后兼容和提供一个统一入口点，该文件重新导出配置
+ * 
+ * 如需修改配置，请修改 src/config/ 目录下的相应文件:
+ * - site.ts: 站点基本信息
+ * - navigation.ts: 导航菜单配置
+ * - user.ts: 用户个人信息
+ * - appearance.ts: 外观和布局配置
+ * - comment.ts: 评论系统配置
+ */
 
-  description: "Ciallo～(∠・ω<)⌒★",
-
-  site: "https://hub.xiaozhangya.xin",
-
-  locale: "zh-CN", // set for website language and date format
-
-  
-
-  navigators: [
-    {
-      nameKey: I18nKeys.nav_bar_home,
-      href: "/",
-    },
-    {
-      nameKey: I18nKeys.nav_bar_archive,
-      href: "/archive",
-    },
-    {  
-      nameKey: I18nKeys.nav_bar_navigation,
-      href: "/navigation",
-    },
-    {
-      nameKey: I18nKeys.nav_bar_bangumi,
-      href: "/bangumi",
-    },
-    {
-      nameKey: I18nKeys.nav_bar_music,  
-      href: "/music",  
-    },  
-    {
-      nameKey: I18nKeys.nav_bar_about,
-      href: "/about",
-    },
-    // {
-    //   nameKey: I18nKeys.nav_bar_github,
-    //   href: "https://github.com/WhitePaper233/yukina",
-    // },
-  ],
-
-  username: "RyuChan",
-  sign: "Ciallo～(∠・ω<)⌒★",
-  avatarUrl: "https://s2.loli.net/2025/01/25/FPpTrQSezM8ivbl.webp",
-  socialLinks: [
-    {
-      icon: "line-md:github-loop",
-      link: "https://github.com/xz131714",
-    },
-    {
-      icon: "mingcute:bilibili-line",
-      link: "https://space.bilibili.com/22433608",
-    },
-    {
-      icon: "mingcute:netease-music-line",
-      link: "https://music.163.com/#/user/home?id=125291648",
-    },
-  ],
-  maxSidebarCategoryChip: 6, // It is recommended to set it to a common multiple of 2 and 3
-  maxSidebarTagChip: 12,
-  maxFooterCategoryChip: 6,
-  maxFooterTagChip: 24,
-
-  banners: [
-    "https://s2.loli.net/2025/01/25/PBvHFjr5yDu6t4a.webp",
-    "https://s2.loli.net/2025/01/25/6bKcwHZigzlM4mJ.webp",
-    "https://s2.loli.net/2025/01/25/H9WgEK6qNTcpFiS.webp",
-    "https://s2.loli.net/2025/01/25/njNVtuUMzxs81RI.webp",
-    "https://s2.loli.net/2025/01/25/tozsJ8QHAjFN3Mm.webp",
-    "https://s2.loli.net/2025/01/25/Pm89OveZq7NWUxF.webp",
-    "https://s2.loli.net/2025/01/25/UCYKvc1ZhgPHB9m.webp",
-    "https://s2.loli.net/2025/01/25/JjpLOW8VSmufzlA.webp",
-  ],
-
-  slugMode: "RAW", // 'RAW' | 'HASH'
-
-  license: {
-    name: "CC BY-NC-SA 4.0",
-    url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
-  },
-
-  // 添加樱花特效配置  
-  sakura: {  
-    enable: true,  
-    sakuraNum: 21,  
-    limitTimes: -1,  
-    size: { min: 0.5, max: 1.1 },  
-    speed: {  
-      horizontal: { min: -1.7, max: -1.2 },  
-      vertical: { min: 1.5, max: 2.2 },  
-      rotation: 0.03  
-    },  
-    zIndex: 100  
-  }, 
-  
-  // 添加 Giscus 评论系统配置  
-  giscus: {  
-    enable: true,  
-    repo: "xz131714/gsc",  
-    repoId: "R_kgDOPTM-mA",  
-    category: "General",  
-    categoryId: "DIC_kwDOPTM-mM4CtcFq",  
-    mapping: "pathname",  
-    strict: "0",  
-    reactionsEnabled: "1",  
-    emitMetadata: "0",  
-    inputPosition: "top",  
-    theme: "preferred_color_scheme",  
-    lang: "zh-CN",  
-    loading: "lazy"  
-  },
-
-  // WIP functions
-  bannerStyle: "LOOP", // 'loop' | 'static' | 'hidden'
-};
-
-export default RyuChanConfig;
+export default config;

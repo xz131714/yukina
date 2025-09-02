@@ -1,91 +1,85 @@
----  
-import RyuChanConfig from "../../../ryuchan.config";  
-  
-const giscusConfig = RyuChanConfig.giscus;  
----  
-  
-{giscusConfig?.enable && (  
-  <div id="giscus-container" class="giscus-wrapper"></div>  
+---
+// 直接从配置模块导入评论配置
+import commentConfig from "../../config/comment";
+
+const giscusConfig = commentConfig.giscus;
+---
+
+{giscusConfig?.enable && (
+  <div class="giscus-container">
+    <!-- Giscus 将在此处加载 -->
+  </div>
+
+  <script define:vars={{ giscusConfig }} is:inline>
+    function getCurrentTheme() {
+      // 检查主题类
+      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    }
+      
+    function loadGiscus() {
+      const container = document.querySelector('.giscus-container');
+      if (!container) return;
+      
+      // 获取当前主题
+      const theme = getCurrentTheme();
+        
+      const script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+      script.setAttribute('data-repo', giscusConfig.repo);
+      script.setAttribute('data-repo-id', giscusConfig.repoId);
+      script.setAttribute('data-category', giscusConfig.category);
+      script.setAttribute('data-category-id', giscusConfig.categoryId);
+      script.setAttribute('data-mapping', giscusConfig.mapping || 'pathname');
+      script.setAttribute('data-strict', giscusConfig.strict || '0');
+      script.setAttribute('data-reactions-enabled', giscusConfig.reactionsEnabled || '1');
+      script.setAttribute('data-emit-metadata', giscusConfig.emitMetadata || '0');
+      script.setAttribute('data-input-position', giscusConfig.inputPosition || 'top');
+      script.setAttribute('data-theme', theme);
+      script.setAttribute('data-lang', giscusConfig.lang || 'zh-CN');
+      script.setAttribute('data-loading', giscusConfig.loading || 'lazy');
+      script.setAttribute('crossorigin', 'anonymous');
+      script.async = true;
+      
+      container.appendChild(script);
+    }  
+      
+    function updateGiscusTheme() {
+      const theme = getCurrentTheme();
+      const iframe = document.querySelector('iframe.giscus-frame');
+      
+      if (iframe) {
+        iframe.contentWindow.postMessage({
+          giscus: { setConfig: { theme } }
+        }, 'https://giscus.app');
+      }
+    }
     
-  <script define:vars={{ giscusConfig }} is:inline>  
-    let giscusLoaded = false;  
-      
-    function getCurrentTheme() {  
-      // 检查 RyuChan 的主题类  
-      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';  
-    }  
-      
-    function loadGiscus() {  
-      const container = document.getElementById('giscus-container');  
-      if (!container || giscusLoaded) return;  
-        
-      // 获取当前主题  
-      const theme = getCurrentTheme();  
-        
-      const script = document.createElement('script');  
-      script.src = 'https://giscus.app/client.js';  
-      script.setAttribute('data-repo', giscusConfig.repo);  
-      script.setAttribute('data-repo-id', giscusConfig.repoId);  
-      script.setAttribute('data-category', giscusConfig.category);  
-      script.setAttribute('data-category-id', giscusConfig.categoryId);  
-      script.setAttribute('data-mapping', giscusConfig.mapping || 'pathname');  
-      script.setAttribute('data-strict', giscusConfig.strict || '0');  
-      script.setAttribute('data-reactions-enabled', giscusConfig.reactionsEnabled || '1');  
-      script.setAttribute('data-emit-metadata', giscusConfig.emitMetadata || '0');  
-      script.setAttribute('data-input-position', giscusConfig.inputPosition || 'top');  
-      script.setAttribute('data-theme', theme);  
-      script.setAttribute('data-lang', giscusConfig.lang || 'zh-CN');  
-      script.setAttribute('data-loading', giscusConfig.loading || 'lazy');  
-      script.setAttribute('crossorigin', 'anonymous');  
-      script.async = true;  
-        
-      container.appendChild(script);  
-      giscusLoaded = true;  
-    }  
-      
-    function updateGiscusTheme() {  
-      if (!giscusLoaded) return;  
-        
-      const theme = getCurrentTheme();  
-      const iframe = document.querySelector('iframe.giscus-frame');  
-        
-      if (iframe) {  
-        iframe.contentWindow.postMessage({  
-          giscus: { setConfig: { theme } }  
-        }, 'https://giscus.app');  
-      }  
-    }  
-      
-    // 初始加载  
-    loadGiscus();  
-      
-    // 监听主题变化 - 只更新主题，不重新加载  
-    const observer = new MutationObserver((mutations) => {  
-      mutations.forEach((mutation) => {  
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {  
-          // 延迟一点确保主题切换完成  
-          setTimeout(updateGiscusTheme, 200);  
-        }  
-      });  
-    });  
-      
-    observer.observe(document.documentElement, {  
-      attributes: true,  
-      attributeFilter: ['class']  
-    });  
-      
-    // 页面切换时重新加载  
-    document.addEventListener('astro:after-swap', () => {  
-      giscusLoaded = false;  
-      setTimeout(loadGiscus, 100);  
-    });  
-  </script>  
+    // 初始加载
+    loadGiscus();
     
-  <style>  
-    .giscus-wrapper {  
-      margin-top: 2rem;  
-      margin-bottom: 2rem;  
-      @apply rounded-2xl bg-[var(--card-color)] p-6;  
-    }  
-  </style>  
+    // 监听主题变化
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          setTimeout(updateGiscusTheme, 200);
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    // 页面切换时重新加载
+    document.addEventListener('astro:after-swap', () => {
+      setTimeout(loadGiscus, 100);
+    });
+  </script>
+  
+  <style>
+    .giscus-container {
+      margin-top: 2rem;
+    }
+  </style>
 )}

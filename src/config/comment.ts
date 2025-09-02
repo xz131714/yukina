@@ -18,6 +18,7 @@ const commentConfig: {
     reactionsEnabled: "1",
     emitMetadata: "0",
     inputPosition: "top",
+    // 使用内置主题: light, dark, dark_high_contrast, dark_dimmed, transparent_dark, noborder_light, noborder_dark
     theme: "preferred_color_scheme",
     lang: "zh-CN",
     loading: "lazy"

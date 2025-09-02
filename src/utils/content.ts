@@ -32,7 +32,7 @@ export interface Category {
 /**
  * Retrieves and sorts blog posts by their published date.
  *
- * This function fetches all blog posts from the "posts" collection, filters out drafts if in production mode,
+ * This function fetches all blog posts from the collection, filters out drafts if in production mode,
  * and sorts them in descending order by their published date. It also adds `nextSlug`, `nextTitle`, `prevSlug`,
  * and `prevTitle` properties to each post for navigation purposes.
  *
@@ -49,11 +49,11 @@ export async function GetSortedPosts() {
   });
 
   for (let i = 1; i < sorted.length; i++) {
-    (sorted[i].data as any).nextSlug = (sorted[i - 1] as any).slug;
+    (sorted[i].data as any).nextSlug = sorted[i - 1].id;
     (sorted[i].data as any).nextTitle = sorted[i - 1].data.title;
   }
   for (let i = 0; i < sorted.length - 1; i++) {
-    (sorted[i].data as any).prevSlug = (sorted[i + 1] as any).slug;
+    (sorted[i].data as any).prevSlug = sorted[i + 1].id;
     (sorted[i].data as any).prevTitle = sorted[i + 1].data.title;
   }
 

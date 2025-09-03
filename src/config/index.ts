@@ -7,6 +7,7 @@ import userConfig from "./user";
 import appearanceConfig from "./appearance";
 import commentConfig from "./comment";
 import umamiConfig from "./umami";
+import musicConfig from "./music";
 import type { Configuration } from "../types/config";
 
 /**
@@ -46,7 +47,10 @@ const config: Configuration = {
   giscus: commentConfig.giscus,
 
   // Umami统计系统
-  umami: umamiConfig
+  umami: umamiConfig,
+
+  // 音乐播放器
+  musicPlayer: musicConfig
 };
 
 export default config;

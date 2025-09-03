@@ -1,12 +1,14 @@
 ---
 import RyuChanConfig from "../../ryuchan.config";
 import BaseHead from "../components/common/BaseHead.astro";
+import MusicPlayer from "../components/MusicPlayer/index.svelte";
 ---
 
 <html lang={RyuChanConfig.locale}>
   <BaseHead />
   <body class="overflow-y-hidden">
     <slot />
+    {RyuChanConfig.musicPlayer?.enable && <MusicPlayer client:load />}
   </body>
 </html>
 

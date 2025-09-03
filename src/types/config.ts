@@ -1,4 +1,22 @@
-import type I18nKeys from "../locales/keys";
+import type I18nKeys from "../i18n/keys";
+
+/**
+ * 音乐播放器配置
+ */
+export interface MusicPlayerConfig {
+  /** 是否启用音乐播放器 */
+  enable: boolean;
+  /** 播放模式: local=本地模式, meting=API获取 */
+  mode?: "local" | "meting";
+  /** Meting API地址 */
+  meting_api?: string;
+  /** 歌单/歌曲ID */
+  id?: string;
+  /** 音乐服务平台 */
+  server?: string;
+  /** 类型: playlist=歌单, song=单曲 */
+  type?: string;
+}
 
 /**
  * 导航项配置
@@ -117,6 +135,9 @@ interface Configuration {
   site: string;
   /** 网站语言和日期格式设置 */
   locale: "en" | "zh-CN";
+
+  /** 音乐播放器配置 */
+  musicPlayer?: MusicPlayerConfig;
 
   // 导航相关
   /** 导航栏菜单项配置 */

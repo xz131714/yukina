@@ -3,4 +3,3 @@
  */
 
 export { default as Giscus } from './Giscus.astro';
-export { default as CommentSection } from './CommentSection.astro';

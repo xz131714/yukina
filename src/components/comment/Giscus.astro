@@ -20,6 +20,9 @@ const giscusConfig = commentConfig.giscus;
       const container = document.querySelector('.giscus-container');
       if (!container) return;
       
+      // 清空容器，防止重复加载
+      container.innerHTML = '<!-- Giscus 将在此处加载 -->';
+      
       // 获取当前主题
       const theme = getCurrentTheme();
         
@@ -72,8 +75,14 @@ const giscusConfig = commentConfig.giscus;
     });
     
     // 页面切换时重新加载
+    document.addEventListener('astro:page-load', () => {
+      // 使用setTimeout确保DOM完全加载
+      setTimeout(loadGiscus, 300);
+    });
+    
+    // 兼容旧版事件
     document.addEventListener('astro:after-swap', () => {
-      setTimeout(loadGiscus, 100);
+      setTimeout(loadGiscus, 300);
     });
   </script>
   

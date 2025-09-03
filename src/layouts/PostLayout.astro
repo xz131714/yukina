@@ -2,7 +2,7 @@
 import Main from "../layouts/MainLayout.astro";
 import Markdown from "../components/post/Markdown.astro";
 import CopyRight from "../components/misc/CopyRight.astro";
-import { CommentSection } from "../components/comment";
+import { Giscus } from "../components/comment";
 import { Icon } from "astro-icon/components";
 
 interface Props {
@@ -90,7 +90,8 @@ const {
 
   <!-- 评论区 -->
   <div class="comments-wrapper mt-6 mx-3 rounded-2xl bg-[var(--card-color)] px-5 py-6 lg:mx-0 lg:px-10 lg:py-9">
-    <CommentSection />
+    <h2 class="mb-4 text-xl font-bold text-[var(--text-color)]">评论</h2>
+    <Giscus />
   </div>
 </Main>
 

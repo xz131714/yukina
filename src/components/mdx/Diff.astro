@@ -1,0 +1,32 @@
+---
+const { l, r } = Astro.props;
+---
+
+<div class="image-diff">
+  <div class="image-left">
+    <img src={l} alt="Left Image">
+  </div>
+  <div class="image-right">
+    <img src={r} alt="Right Image">
+  </div>
+</div>
+
+<style>
+  .image-diff {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .image-left, .image-right {
+    flex: 1;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .image-diff img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

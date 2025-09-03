@@ -1,0 +1,33 @@
+---
+/**
+ * 评论区容器组件
+ */
+import { Giscus } from "./index";
+import commentConfig from "../../config/comment";
+
+const { giscus } = commentConfig;
+---
+
+<section class="comment-container">
+  {giscus.enable && <Giscus />}
+  
+  {!giscus.enable && <p class="comment-disabled">评论功能已禁用</p>}
+</section>
+
+<style>
+  .comment-container {
+    margin-top: 2rem;
+    padding-top: 1rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .comment-disabled {
+    text-align: center;
+    padding: 1rem;
+    color: #666;
+  }
+</style>

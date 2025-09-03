@@ -2,7 +2,7 @@
 import { Icon } from "astro-icon/components";
 import RyuChanConfig from "../../ryuchan.config";
 import { i18n } from "../i18n/translation";
-import I18nKeys from "../locales/keys";
+import key from "../i18n/keys";
 import { GetCategories, GetTags } from "../utils/content";
 
 const categories = await GetCategories();
@@ -70,7 +70,7 @@ const tagKeys = [...tags.keys()];
     <div class="mb-2 flex flex-row items-center space-x-2 pl-1.5">
       <span class="h-6 w-1 rounded-full bg-[var(--primary-color)]"></span>
       <span class="text-xl font-semibold text-[var(--text-color)]">
-        {i18n(I18nKeys.side_bar_categories)}
+        {i18n(key.side_bar_categories)}
       </span>
     </div>
     <div class="relative grid grid-cols-2 gap-1 md:grid-cols-3">
@@ -117,7 +117,7 @@ const tagKeys = [...tags.keys()];
               href="/categories/"
               class="flex flex-row items-center space-x-1 text-[var(--primary-color)] transition-colors hover:brightness-75 dark:hover:brightness-125"
             >
-            <span>{i18n(I18nKeys.side_bar_view_more)}</span>
+            <span>{i18n(key.side_bar_view_more)}</span>
                 <Icon name="mingcute:arrow-right-line" />
             </a>
           </div>
@@ -131,7 +131,7 @@ const tagKeys = [...tags.keys()];
     <div class="mb-2 flex flex-row items-center space-x-2 pl-1.5">
       <span class="h-6 w-1 rounded-full bg-[var(--primary-color)]"></span>
       <span class="text-xl font-semibold text-[var(--text-color)]">
-        {i18n(I18nKeys.side_bar_tags)}
+        {i18n(key.side_bar_tags)}
       </span>
     </div>
     <div class="relative flex flex-row flex-wrap">
@@ -154,7 +154,7 @@ const tagKeys = [...tags.keys()];
               href="/tags/"
               class="flex flex-row items-center space-x-1 text-[var(--primary-color)] transition-colors hover:brightness-75 dark:hover:brightness-125"
             >
-              <span>{i18n(I18nKeys.side_bar_view_more)}</span>
+              <span>{i18n(key.side_bar_view_more)}</span>
               <Icon name="mingcute:arrow-right-line" />
             </a>
           </div>

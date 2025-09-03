@@ -17,7 +17,7 @@ const navigationConfig: {
       nameKey: key.nav_bar_archive,
       href: "/archive",
     },
-    {  
+    {
       nameKey: key.nav_bar_navigation,
       href: "/navigation",
     },
@@ -25,10 +25,7 @@ const navigationConfig: {
       nameKey: key.nav_bar_bangumi,
       href: "/bangumi",
     },
-    {
-      nameKey: key.nav_bar_music,  
-      href: "/music",  
-    },  
+    // ...已移除音乐页面入口
     {
       nameKey: key.nav_bar_about,
       href: "/about",

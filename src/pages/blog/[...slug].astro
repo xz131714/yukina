@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, remarkPluginFrontmatter } = await render(entry);
 const entryData = entry.data as any;
 const prevPost = entryData.prevSlug ? { 
   slug: IdToSlug(entryData.prevSlug), 
@@ -24,6 +24,7 @@ const nextPost = entryData.nextSlug ? {
   slug: IdToSlug(entryData.nextSlug), 
   title: entryData.nextTitle 
 } : null;
+const readingMetadata = remarkPluginFrontmatter.readingMetadata || { time: 0, wordCount: 0 };
 ---
 
 {
@@ -36,6 +37,7 @@ const nextPost = entryData.nextSlug ? {
       prevPost={prevPost}
       nextPost={nextPost}
       slug={Astro.params.slug}
+      readingMetadata={readingMetadata}
     >
       <div
         class="hidden"
@@ -64,6 +66,7 @@ const nextPost = entryData.nextSlug ? {
       prevPost={prevPost}
       nextPost={nextPost}
       slug={Astro.params.slug}
+      readingMetadata={readingMetadata}
     >
       <div
         class="hidden"

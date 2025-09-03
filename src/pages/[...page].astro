@@ -13,7 +13,28 @@ export async function getStaticPaths({
   paginate: PaginateFunction;
 }) {
   const postCollections = await GetSortedPosts();
-  return paginate(postCollections, { pageSize: 6 });
+  
+  // 预渲染所有文章内容以获取readingMetadata
+  const enhancedPostCollections = await Promise.all(
+    postCollections.map(async (post) => {
+      try {
+        const { render } = await import('astro:content');
+        const { remarkPluginFrontmatter } = await render(post);
+        return {
+          ...post,
+          readingMetadata: remarkPluginFrontmatter?.readingMetadata || { time: 0, wordCount: 0 }
+        };
+      } catch (error) {
+        console.error(`Error rendering post ${post.id}:`, error);
+        return {
+          ...post,
+          readingMetadata: { time: 0, wordCount: 0 }
+        };
+      }
+    })
+  );
+  
+  return paginate(enhancedPostCollections, { pageSize: 6 });
 }
 const { page } = Astro.props;
 ---
@@ -35,9 +56,7 @@ const { page } = Astro.props;
               tags={entry.data.tags}
               description={entry.data.description}
               image={entry.data.cover}
-              readingMetadata={  
-                entry.rendered?.metadata?.frontmatter?.readingMetadata || { time: 0, wordCount: 0 }  
-              }
+              readingMetadata={entry.readingMetadata || { time: 0, wordCount: 0 }}
             />
           </div>
         ))

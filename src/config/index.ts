@@ -6,6 +6,7 @@ import navigationConfig from "./navigation";
 import userConfig from "./user";
 import appearanceConfig from "./appearance";
 import commentConfig from "./comment";
+import umamiConfig from "./umami";
 import type { Configuration } from "../types/config";
 
 /**
@@ -22,16 +23,16 @@ const config: Configuration = {
   locale: siteConfig.locale,
   slugMode: siteConfig.slugMode,
   license: siteConfig.license,
-  
+
   // 导航配置
   navigators: navigationConfig.navigators,
-  
+
   // 用户信息
   username: userConfig.username,
   sign: userConfig.sign,
   avatarUrl: userConfig.avatarUrl,
   socialLinks: userConfig.socialLinks,
-  
+
   // 外观配置
   maxSidebarCategoryChip: appearanceConfig.maxSidebarCategoryChip,
   maxSidebarTagChip: appearanceConfig.maxSidebarTagChip,
@@ -40,9 +41,12 @@ const config: Configuration = {
   banners: appearanceConfig.banners,
   bannerStyle: appearanceConfig.bannerStyle,
   sakura: appearanceConfig.sakura,
-  
+
   // 评论系统
-  giscus: commentConfig.giscus
+  giscus: commentConfig.giscus,
+
+  // Umami统计系统
+  umami: umamiConfig
 };
 
 export default config;

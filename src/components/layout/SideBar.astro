@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import RyuChanConfig from "../../../ryuchan.config";
 import key from "../../i18n/keys";
 import { i18n } from "../../i18n/translation";
+import config from "../../config";
 import { GetCategories, GetTags } from "../../utils/content";
 import SocialIcon from "../widgets/SocialIcon.astro";
 
@@ -11,6 +12,8 @@ const categories = await GetCategories();
 
 const categoryKeys = [...categories.keys()];
 const tagKeys = [...tags.keys()];
+
+const umamiConfig = config.umami;
 ---
 
 <div class="flex w-full flex-row justify-center">
@@ -43,6 +46,19 @@ const tagKeys = [...tags.keys()];
           </div>
         )
       }
+      
+      <!-- 分割线 -->
+      <div class="my-3 flex justify-center">
+        <div class="h-0.5 w-16 rounded-full bg-[var(--primary-color)]"></div>
+      </div>
+      
+      <!-- 网站浏览统计 -->
+      <div class="flex flex-col items-center justify-center">
+        <div class="flex items-center">
+          <Icon name="material-symbols:visibility-outline-rounded" class="mr-1 text-lg text-[var(--text-color-lighten)]" />
+          <span class="text-sm text-[var(--text-color-lighten)]" id="site-page-views">加载中...</span>
+        </div>
+      </div>
     </div>
 
     <!-- categories -->
@@ -195,4 +211,58 @@ const tagKeys = [...tags.keys()];
     font-family: var(--primary-font);
   }
 </style>
+
+{umamiConfig?.enable && (
+  <script define:vars={{ umamiConfig }}>
+    // 获取全站浏览量统计
+    async function fetchSiteViews() {
+      if (!umamiConfig.enable) {
+        return;
+      }
+      
+      try {
+        // 第一步：获取网站ID和token
+        const shareResponse = await fetch(`${umamiConfig.baseUrl}/api/share/${umamiConfig.shareId}`);
+        if (!shareResponse.ok) {
+          throw new Error('获取分享信息失败');
+        }
+        const shareData = await shareResponse.json();
+        const { websiteId, token } = shareData;
+        
+        // 第二步：获取统计数据
+        const currentTimestamp = Date.now();
+        const statsUrl = `${umamiConfig.baseUrl}/api/websites/${websiteId}/stats?startAt=0&endAt=${currentTimestamp}&unit=day&timezone=${encodeURIComponent(umamiConfig.timezone)}`;
+        
+        const statsResponse = await fetch(statsUrl, {
+          headers: {
+            'x-umami-share-token': token
+          }
+        });
+        
+        if (!statsResponse.ok) {
+          throw new Error('获取统计数据失败');
+        }
+        
+        const statsData = await statsResponse.json();
+        const pageViews = statsData.pageviews?.value || 0;
+        const visits = statsData.visits?.value || 0;
+        
+        const displayElement = document.getElementById('site-page-views');
+        if (displayElement) {
+          displayElement.textContent = `浏览量 ${pageViews} · 访问数 ${visits}`;
+        }
+      } catch (error) {
+        console.error('Error fetching site views:', error);
+        const displayElement = document.getElementById('site-page-views');
+        if (displayElement) {
+          displayElement.textContent = '统计不可用';
+        }
+      }
+    }
+    
+    // 页面加载完成后获取统计数据
+    fetchSiteViews();
+    document.addEventListener('astro:page-load', fetchSiteViews);
+  </script>
+)}
 

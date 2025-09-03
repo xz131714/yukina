@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import RyuChanConfig from "../../../ryuchan.config";
 import key from "../../i18n/keys";
 import { i18n } from "../../i18n/translation";
+import config from "../../config";
 import { formatDate } from "../../utils/date";
 
 export interface Props {
@@ -14,9 +15,11 @@ export interface Props {
   };
   sourceLink?: string;
   author?: string;
+  slug?: string;
 }
 
-const { title, published, license, author, sourceLink } = Astro.props;
+const { title, published, license, author, sourceLink, slug } = Astro.props;
+const umamiConfig = config.umami;
 ---
 
 <div
@@ -90,6 +93,13 @@ const { title, published, license, author, sourceLink } = Astro.props;
           )
         }
       </div>
+      <!-- page views -->
+      {slug && (
+        <div class="flex flex-col">
+          <span class="select-none text-sm text-[var(--text-color-lighten)]">浏览量</span>
+          <span class="text-50 text-sm font-medium lg:text-base" id="page-views-display">加载中...</span>
+        </div>
+      )}
     </div>
   </div>
   <div
@@ -108,3 +118,57 @@ const { title, published, license, author, sourceLink } = Astro.props;
     font-family: var(--primary-font);
   }
 </style>
+
+{slug && umamiConfig?.enable && (  
+  <script define:vars={{ slug, umamiConfig }}>  
+    // 获取文章浏览量统计  
+    async function fetchPostViews() {  
+      if (!umamiConfig.enable) {  
+        return;  
+      }  
+        
+      try {  
+        // 第一步：获取网站ID和token  
+        const shareResponse = await fetch(`${umamiConfig.baseUrl}/api/share/${umamiConfig.shareId}`);  
+        if (!shareResponse.ok) {  
+          throw new Error('获取分享信息失败');  
+        }  
+        const shareData = await shareResponse.json();  
+        const { websiteId, token } = shareData;  
+          
+        // 第二步：获取统计数据  
+        const currentTimestamp = Date.now();  
+        const statsUrl = `${umamiConfig.baseUrl}/api/websites/${websiteId}/stats?startAt=0&endAt=${currentTimestamp}&unit=hour&timezone=${encodeURIComponent(umamiConfig.timezone)}&url=%2Fblog%2F${slug}&compare=false`;  
+          
+        const statsResponse = await fetch(statsUrl, {  
+          headers: {  
+            'x-umami-share-token': token  
+          }  
+        });  
+          
+        if (!statsResponse.ok) {  
+          throw new Error('获取统计数据失败');  
+        }  
+          
+        const statsData = await statsResponse.json();  
+        const pageViews = statsData.pageviews?.value || 0;  
+        const visits = statsData.visits?.value || 0;  
+          
+        const displayElement = document.getElementById(`page-views-display`);  
+        if (displayElement) {  
+          displayElement.textContent = `${pageViews} 次浏览 · ${visits} 次访问`;  
+        }
+      } catch (error) {  
+        console.error('Error fetching page views for', slug, ':', error);  
+        const displayElement = document.getElementById(`page-views-display`); 
+        if (displayElement) {  
+          displayElement.textContent = '统计不可用';  
+        }
+      }  
+    }  
+  
+    // 页面加载完成后获取统计数据
+    fetchPostViews();
+    document.addEventListener('astro:page-load', fetchPostViews);
+  </script>
+)}

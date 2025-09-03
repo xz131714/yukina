@@ -31,6 +31,22 @@ export interface License {
 }
 
 /**
+ * Umami统计配置
+ */
+export type UmamiConfig = {
+  /** 是否启用Umami统计 */
+  enable: boolean;
+  /** Umami服务基础URL */
+  baseUrl: string;
+  /** Umami分享ID，用于API请求 */
+  shareId: string;
+  /** 时区 */
+  timezone: string;
+  /** 网站ID，仅用于追踪代码 */
+  websiteId: string;
+};
+
+/**
  * 樱花特效配置
  */
 export interface SakuraConfig {
@@ -143,6 +159,8 @@ interface Configuration {
   // 集成配置
   /** Giscus评论系统配置 */
   giscus?: GiscusConfig;
+  /** Umami统计配置 */
+  umami?: UmamiConfig;
 
   // 布局与展示方式
   /** 横幅显示方式: LOOP=轮换显示, STATIC=静态显示, HIDDEN=隐藏 */

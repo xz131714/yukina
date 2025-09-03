@@ -18,6 +18,7 @@ interface Props {
   sourceLink?: string;
   prevPost?: { slug: string; title: string } | null;
   nextPost?: { slug: string; title: string } | null;
+  slug?: string;
 }
 
 const {
@@ -30,6 +31,7 @@ const {
   sourceLink,
   prevPost,
   nextPost,
+  slug,
 } = Astro.props;
 ---
 
@@ -48,6 +50,7 @@ const {
             license={license}
             author={author}
             sourceLink={sourceLink}
+            slug={slug}
           />
         )
       }

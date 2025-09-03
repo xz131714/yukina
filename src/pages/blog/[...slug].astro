@@ -35,6 +35,7 @@ const nextPost = entryData.nextSlug ? {
       published={entry.data.published}
       prevPost={prevPost}
       nextPost={nextPost}
+      slug={Astro.params.slug}
     >
       <div
         class="hidden"
@@ -62,6 +63,7 @@ const nextPost = entryData.nextSlug ? {
       sourceLink={entry.data.sourceLink}
       prevPost={prevPost}
       nextPost={nextPost}
+      slug={Astro.params.slug}
     >
       <div
         class="hidden"

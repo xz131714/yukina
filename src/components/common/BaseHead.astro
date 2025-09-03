@@ -3,8 +3,10 @@ import RyuChanConfig from "../../../ryuchan.config";
 import GlobalStyles from "./GlobalStyles.astro";
 import ScriptSetup from "../seo/ScriptSetup.astro";
 import SakuraEffect from "../effects/SakuraEffect.astro";
+import config from "../../config";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const umamiConfig = config.umami;
 ---
 
 <!-- Global Metadata -->
@@ -61,3 +63,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <GlobalStyles />
 <ScriptSetup />
 <SakuraEffect />
+
+{/* Umami Analytics Tracking Code */}
+{umamiConfig?.enable && (
+  <script 
+    defer 
+    src={`${umamiConfig.baseUrl}/script.js`} 
+    data-website-id={umamiConfig.websiteId}
+  />
+)}

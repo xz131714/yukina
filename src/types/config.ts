@@ -19,6 +19,22 @@ export interface MusicPlayerConfig {
 }
 
 /**
+ * 石蒜模拟器配置
+ */
+export interface SakanaWidgetConfig {
+  /** 是否启用石蒜模拟器 */
+  enable: boolean;
+  /** 默认角色 */
+  character?: string;
+  /** 是否显示控制栏 */
+  controls?: boolean;
+  /** 是否显示支撑杆 */
+  rod?: boolean;
+  /** 是否可拖动 */
+  draggable?: boolean;
+}
+
+/**
  * 导航项配置
  */
 export interface NavigatorItem {
@@ -176,6 +192,8 @@ interface Configuration {
   // 特效配置
   /** 樱花飘落特效配置 */
   sakura?: SakuraConfig;
+  /** 石蒜模拟器配置 */
+  sakanaWidget?: SakanaWidgetConfig;
 
   // 集成配置
   /** Giscus评论系统配置 */

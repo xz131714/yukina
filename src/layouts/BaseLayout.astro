@@ -2,6 +2,7 @@
 import RyuChanConfig from "../../ryuchan.config";
 import BaseHead from "../components/common/BaseHead.astro";
 import MusicPlayer from "../components/MusicPlayer/index.svelte";
+import SakanaWidget from "../components/SakanaWidget/index.svelte";
 ---
 
 <html lang={RyuChanConfig.locale}>
@@ -9,6 +10,7 @@ import MusicPlayer from "../components/MusicPlayer/index.svelte";
   <body class="overflow-y-hidden">
     <slot />
     {RyuChanConfig.musicPlayer?.enable && <MusicPlayer client:load />}
+    {RyuChanConfig.sakanaWidget?.enable && <SakanaWidget client:load />}
   </body>
 </html>
 

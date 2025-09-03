@@ -8,6 +8,7 @@ import appearanceConfig from "./appearance";
 import commentConfig from "./comment";
 import umamiConfig from "./umami";
 import musicConfig from "./music";
+import sakanaConfig from "./sakana";
 import type { Configuration } from "../types/config";
 
 /**
@@ -50,7 +51,10 @@ const config: Configuration = {
   umami: umamiConfig,
 
   // 音乐播放器
-  musicPlayer: musicConfig
+  musicPlayer: musicConfig,
+
+  // 石蒜模拟器
+  sakanaWidget: sakanaConfig
 };
 
 export default config;
